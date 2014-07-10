@@ -9,16 +9,14 @@ def get_data(file, char):
 def put_data(array, file):
 	file.seek(0)
 	for each in array:
-		file.write(each)
-		file.write('\n')
+		file.write(each+'\n')
 def merge(array1, array2):
 	for each in array2:
-		if check(array2, each) is True and '-' not in each:
+		if check(array2, each) is True and '-' not in each and len(each) != 1:
 			if each.lower() not in array1:
 				array1.append(each.lower())
 	array1.sort()
 	return array1
-notallowed = ['/','.',',']
 def check(arraysrc, word):
 	array = re.findall('[^A-Za-z]+', word)
 	if (len(array)==0):
@@ -46,11 +44,15 @@ for each in dlist:
 	for item in dlist[each]:
 		if item != fn1:
 			fn2 = dname + '/' + item
-			file1 = open(fn1)
+			print "\tReading %r" % item
+			try:
+				file1 = open(fn1)
+				a=get_data(file1, '\n')
+			except IOError:
+				file1 = open(fn1, 'w')
+				a=[]
 			file2 = open(fn2)
-			a=[]
 			b=[]
-			a=get_data(file1, '\n')
 			b=get_data(file2, ' ')
 			a=merge(a, b)
 			file1 = open(fn1, 'w')
