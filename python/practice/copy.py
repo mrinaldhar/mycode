@@ -1,0 +1,6 @@
+filename = raw_input('Enter the file name: ')
+oldfile = open(filename, 'r')
+newfile = open('newfile2', 'w')
+newfile.write(oldfile.read())
+newfile.close()
+oldfile.close()
